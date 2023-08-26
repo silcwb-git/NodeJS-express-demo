@@ -54,6 +54,7 @@ app.delete('/api/courses/:id', (req, res) => {
     const index = courses.indexOf(course);
 
     // delete course
+    
     courses.splice(index, 1);
     res.send(course);
 });
