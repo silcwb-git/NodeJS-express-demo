@@ -23,7 +23,7 @@ app.use(helmet());
 
 if (app.get('env')=== 'development') {
     app.use(Morgan('tiny'));
-    debug('Morgan enabled...'); //console.log()
+    debug('Morgan enabled...'); //debug()
 }
 
 const courses = [
