@@ -1,3 +1,5 @@
+const morgan = require('morgan');
+const helmet = require('helmet');
 const Joi = require('joi');
 const express = require('express');
 const logger = require('./logger');
@@ -9,6 +11,8 @@ app.use(express.json());
 // creating middleware functions
 app.use(logger);
 app.use(auth);
+app.use(helmet());
+app.use(morgan('tiny'));
 
 const courses = [
     { id: 1, name: 'course1' },
