@@ -4,7 +4,8 @@ const Morgan = require('morgan');
 const helmet = require('helmet');
 const Joi = require('joi');
 const express = require('express');
-const courses = require('./courses');
+const courses = require('./routes/courses');
+const home = require('./routes/home');
 const logger = require('./logger');
 const auth = require('./authenticator');
 
@@ -15,6 +16,7 @@ console.log("Mail Password: " + config.get('mail.password'));
 
 const app = express();
 app.use(express.json());
+
 // creating middleware functions
 app.use(logger);
 app.use(auth);
@@ -24,22 +26,12 @@ app.set('view engine', 'pug');
 app.set('views', './views'); //default
 
 app.use('/api/courses', courses);
+app.use('/', home);
 
-
-if (app.get('env')=== 'development') {
+if (app.get('env') === 'development') {
     app.use(Morgan('tiny'));
     debug('Morgan enabled...'); //debug()
 }
-
-const courses = [
-    { id: 1, name: 'course1' },
-    { id: 2, name: 'course2' },
-    { id: 3, name: 'course3' },
-];
-
-app.get('/', (req, res) => {
-    res.render('index', {title: 'My Express App', message: 'Hello !'});
-});
 
 const port = process.env.PORT || 3000;
 app.listen(port, () => console.log(`Listening on port ${port}...`));
