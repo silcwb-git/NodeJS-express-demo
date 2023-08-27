@@ -1,4 +1,4 @@
-const morgan = require('morgan');
+const Morgan = require('morgan');
 const helmet = require('helmet');
 const Joi = require('joi');
 const express = require('express');
@@ -12,7 +12,12 @@ app.use(express.json());
 app.use(logger);
 app.use(auth);
 app.use(helmet());
-app.use(morgan('tiny'));
+
+
+if (app.get('env')=== 'development') {
+    app.use(Morgan('tiny'));
+    console.log('Morgan enabled...');
+}
 
 const courses = [
     { id: 1, name: 'course1' },
