@@ -1,14 +1,14 @@
 const Joi = require('joi');
 const express = require('express');
 const logger = require('./logger');
-const authent = require('./authentication');
+const auth = require('./authenticator');
 
 const app = express();
 app.use(express.json());
 
 // creating middleware functions
 app.use(logger);
-app.use(authent);
+app.use(auth);
 
 const courses = [
     { id: 1, name: 'course1' },
