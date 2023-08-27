@@ -20,6 +20,9 @@ app.use(logger);
 app.use(auth);
 app.use(helmet());
 
+app.set('view engine', 'pug');
+app.set('views', './views'); //default
+
 
 if (app.get('env')=== 'development') {
     app.use(Morgan('tiny'));
@@ -31,6 +34,10 @@ const courses = [
     { id: 2, name: 'course2' },
     { id: 3, name: 'course3' },
 ];
+
+app.get('/', (req, res) => {
+    res.render('index', {title: 'My Express App', message: 'Hello !'});
+});
 
 app.get('/api/courses', (req, res) => {
     res.send(courses);
