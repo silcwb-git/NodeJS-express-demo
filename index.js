@@ -1,8 +1,14 @@
 const Joi = require('joi');
 const express = require('express');
-const app = express();
+const logger = require('./logger');
+const authent = require('./authentication');
 
+const app = express();
 app.use(express.json());
+
+// creating middleware functions
+app.use(logger);
+app.use(authent);
 
 const courses = [
     { id: 1, name: 'course1' },
@@ -21,7 +27,7 @@ app.get('/api/courses/:id', (req, res) => {
 });
 
 app.post('/api/courses', (req, res) => {
-    
+
     const { error } = ValidateCourse(req.body);
     if (error) return res.status(400).send(error.details[0].message);
 
@@ -40,7 +46,7 @@ app.put('/api/courses/:id', (req, res) => {
 
     const { error } = ValidateCourse(req.body);
     if (error) return res.status(400).send(error.details[0].message);
-    
+
     //update course
     course.name = req.body.name;
     res.send(course);
@@ -54,7 +60,7 @@ app.delete('/api/courses/:id', (req, res) => {
     const index = courses.indexOf(course);
 
     // delete course
-    
+
     courses.splice(index, 1);
     res.send(course);
 });
