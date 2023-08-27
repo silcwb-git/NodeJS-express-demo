@@ -6,7 +6,7 @@ const Joi = require('joi');
 const express = require('express');
 const courses = require('./routes/courses');
 const home = require('./routes/home');
-const logger = require('./logger');
+const logger = require('./middleware/logger');
 const auth = require('./authenticator');
 
 //Configuration
